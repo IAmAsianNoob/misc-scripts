@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         AniList overlap count
+// @name         AniList overlap count and filters
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  try to take over the world!
@@ -7,6 +7,8 @@
 // @match        https://anilist.co/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=anilist.co
 // @require      https://raw.githubusercontent.com/IAmAsianNoob/AMQ-scripts/main/utils/create-element-override.js
+// @downloadURL  https://github.com/IAmAsianNoob/misc-scripts/blob/main/anilist-tools.user.js
+// @updateURL    https://github.com/IAmAsianNoob/misc-scripts/blob/main/anilist-tools.user.js
 // @grant        none
 // ==/UserScript==
 
