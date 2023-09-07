@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AniList overlap count and filters
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  try to take over the world!
 // @author       IAmAsianNoob
 // @match        https://anilist.co/*
@@ -18,6 +18,7 @@ setTimeout(() => {
     const comparePagePattern = /user\/*\/.*?list\/compare$/;
     let setup = false;
     let skip = false;
+    let container;
     let entriesContainer, overlapField;
     const lists = ['Watching', 'Completed', 'Paused', 'Dropped', 'Planning'];
     let hiddenCount = 0;
@@ -25,6 +26,9 @@ setTimeout(() => {
     new MutationObserver(mutationRecords => {
         setTimeout(() => {
             if (!comparePagePattern.test(window.location.pathname)) {
+                if (container) {
+                    container.remove();
+                }
                 setup = false;
             }
             if (!setup) {
@@ -36,7 +40,7 @@ setTimeout(() => {
                 const dataKey = "data-" + Object.keys(entriesContainer.dataset)[0];
                 if (!entriesContainer) return;
 
-                const container = document.createElement('div', { id: 'tools', class: "compare", [dataKey]: '' });
+                container = document.createElement('div', { id: 'tools', class: "compare", [dataKey]: '' });
 
                 // Filter header
                 const filterHeaderRow = document.createElement('div', { class: 'entry header', [dataKey]: '' });
