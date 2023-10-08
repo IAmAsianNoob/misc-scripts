@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         AniList overlap count and filters
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  try to take over the world!
 // @author       IAmAsianNoob
 // @match        https://anilist.co/*
@@ -20,7 +20,7 @@ setTimeout(() => {
     let skip = false;
     let container;
     let entriesContainer, overlapField;
-    const lists = ['Watching', 'Completed', 'Paused', 'Dropped', 'Planning'];
+    const lists = [/animelist/.test(window.location.pathname) ? 'Watching' : 'Current', 'Completed', 'Paused', 'Dropped', 'Planning'];
     let hiddenCount = 0;
 
     new MutationObserver(mutationRecords => {
@@ -102,7 +102,12 @@ setTimeout(() => {
                         value: list
                     });
                     cell.appendChild(checkbox);
+                    // Disable checkbox for the other's planning list as those entries do not show up in the comparison
                     checkbox.addEventListener('change', onChange);
+                    if (list === 'Planning') {
+                        checkbox.disabled = true;
+                        checkbox.style.display = 'none';
+                    }
                     filterOtherRow.appendChild(cell);
                 }
                 container.appendChild(filterOtherRow);
